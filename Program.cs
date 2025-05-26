@@ -278,11 +278,11 @@ class Program
 
             if (path == "/getpaciente" && req.HttpMethod == "GET")
             {
-                Rotas.GetPaciente.Executar(res, pacientes);
+                Rotas.GetPaciente.Executar(res);
             }
             else if (path == "/setpaciente" && req.HttpMethod == "POST")
             {
-                Rotas.SetPaciente.Executar(req, res, pacientes);
+                Rotas.SetPaciente.Executar(req, res);
             }
             else if (path == "/putpaciente" && req.HttpMethod == "PUT")
             {
@@ -290,7 +290,7 @@ class Program
             }
             else if (path == "/deletepaciente" && req.HttpMethod == "DELETE")
             {
-                Rotas.DeletePaciente.Executar(req, res, pacientes);
+                Rotas.DeletePaciente.Executar(req, res);
             }
             else
             {

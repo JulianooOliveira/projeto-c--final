@@ -34,3 +34,4 @@ C:\Users\casa\Documents\cadastro-paciente\bin\Debug\net9.0\runtimes\win\lib\net8
 C:\Users\casa\Documents\cadastro-paciente\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro-paciente.csproj.AssemblyReference.cache
 C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro.6DCCAB1C.Up2Date
+C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro-paciente.sourcelink.json
