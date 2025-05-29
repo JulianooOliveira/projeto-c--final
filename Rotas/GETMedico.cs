@@ -1,15 +1,12 @@
 using System.Net;
 using System.Text;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using MySql.Data.MySqlClient;
-using models;
 using Database;
 
 namespace Rotas
 {
-    public static class GetPaciente
+    public static class GETMedico
     {
         public static void Executar(HttpListenerResponse res)
         {
@@ -17,29 +14,27 @@ namespace Rotas
 
             try
             {
-                using (var conn = Database.Database.GetConnection())
+                using (var conn = Database.GetConnection())
                 {
-                    conn.Open();
-
-                    string query = "SELECT id, nome, cpf, DataNascimento FROM pacientes";
+                    string query = "SELECT id, nomeMedico, crmMedico, dataNascimentoMedico FROM medico";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (!reader.HasRows)
                         {
-                            sb.AppendLine("Nenhum paciente cadastrado.");
+                            sb.AppendLine("Nenhum médico cadastrado.");
                         }
                         else
                         {
                             while (reader.Read())
                             {
                                 int id = reader.GetInt32("id");
-                                string nome = reader.GetString("nome");
-                                string cpf = reader.GetString("cpf");
-                                DateTime nascimento = reader.GetDateTime("DataNascimento");
+                                string nome = reader.GetString("nomeMedico");
+                                int crm = reader.GetInt32("crmMedico");
+                                DateTime nascimento = reader.GetDateTime("dataNascimentoMedico");
 
-                                sb.AppendLine($"Id: {id}; Nome: {nome}; DataNascimento: {nascimento:yyyy-MM-dd}; CPF: {cpf}");
+                                sb.AppendLine($"Id: {id}; Nome: {nome}; CRM: {crm}; DataNascimento: {nascimento:yyyy-MM-dd}");
                             }
                         }
                     }
@@ -48,7 +43,7 @@ namespace Rotas
             catch (Exception ex)
             {
                 sb.Clear();
-                sb.AppendLine("Erro ao consultar pacientes: " + ex.Message);
+                sb.AppendLine("Erro ao consultar médicos: " + ex.Message);
             }
 
             byte[] buffer = Encoding.UTF8.GetBytes(sb.ToString());

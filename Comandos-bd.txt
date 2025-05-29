@@ -1,0 +1,31 @@
+CREATE DATABASE IF NOT EXISTS clinica;
+USE clinica;
+
+CREATE TABLE IF NOT EXISTS medico (
+    id INT PRIMARY KEY,
+    nomeMedico VARCHAR(100) NOT NULL,
+    crmMedico INT NOT NULL UNIQUE,
+    dataNascimentoMedico DATE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS especialidade (
+    id INT PRIMARY KEY,
+    nomeEspecialidade VARCHAR(100) NOT NULL UNIQUE,
+    descricao TEXT,
+    idMedico INT NOT NULL,
+    FOREIGN KEY (idMedico) REFERENCES medico(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS pacientes (
+    id INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    dataNascimento DATE NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    idEspecialidade INT NOT NULL,
+    FOREIGN KEY (idEspecialidade) REFERENCES especialidade(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
+

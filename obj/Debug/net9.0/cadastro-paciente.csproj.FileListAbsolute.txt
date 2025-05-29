@@ -35,3 +35,12 @@ C:\Users\casa\Documents\cadastro-paciente\bin\Debug\net9.0\runtimes\win\lib\net8
 C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro-paciente.csproj.AssemblyReference.cache
 C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro.6DCCAB1C.Up2Date
 C:\Users\casa\Documents\cadastro-paciente\obj\Debug\net9.0\cadastro-paciente.sourcelink.json
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.AssemblyInfoInputs.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.AssemblyInfo.cs
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.sourcelink.json
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.dll
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\refint\cadastro-paciente.dll
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net9.0\cadastro-paciente.pdb

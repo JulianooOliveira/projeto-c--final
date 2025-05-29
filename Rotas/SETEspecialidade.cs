@@ -7,77 +7,75 @@ using Database;
 
 namespace Rotas
 {
-    public static class SETPaciente
+    public static class SETEspecialidade
     {
         public static void Executar(HttpListenerRequest req, HttpListenerResponse res)
         {
             using var reader = new StreamReader(req.InputStream, req.ContentEncoding);
             string body = reader.ReadToEnd();
 
-            // Formato esperado: "Id;Nome;DataNascimento;CPF;IdEspecialidade"
+            // Formato esperado: "Id;NomeEspecialidade;Descricao;IdMedico"
             var partes = body.Split(';');
-            if (partes.Length != 5 || 
+            if (partes.Length != 4 ||
                 !int.TryParse(partes[0], out int id) ||
-                !DateTime.TryParse(partes[2], out DateTime dataNasc) ||
-                !int.TryParse(partes[4], out int idEspecialidade))
+                !int.TryParse(partes[3], out int idMedico))
             {
                 res.StatusCode = 400;
-                EscreverResposta(res, "Dados inválidos. Formato esperado: Id;Nome;DataNascimento;CPF;IdEspecialidade");
+                EscreverResposta(res, "Dados inválidos. Formato esperado: Id;NomeEspecialidade;Descricao;IdMedico");
                 return;
             }
 
             string nome = partes[1];
-            string cpf = partes[3];
+            string descricao = partes[2];
 
             try
             {
                 using (var conn = Database.GetConnection())
                 {
-                    // Verifica se a especialidade existe
-                    string verificaEspecialidadeQuery = "SELECT COUNT(*) FROM especialidade WHERE id = @idEspecialidade";
-                    using (var verificaCmd = new MySqlCommand(verificaEspecialidadeQuery, conn))
+                    // Verifica se o médico existe
+                    string verificaMedicoQuery = "SELECT COUNT(*) FROM medico WHERE id = @idMedico";
+                    using (var verificaCmd = new MySqlCommand(verificaMedicoQuery, conn))
                     {
-                        verificaCmd.Parameters.AddWithValue("@idEspecialidade", idEspecialidade);
+                        verificaCmd.Parameters.AddWithValue("@idMedico", idMedico);
                         int count = Convert.ToInt32(verificaCmd.ExecuteScalar());
                         if (count == 0)
                         {
                             res.StatusCode = 404;
-                            EscreverResposta(res, "Especialidade não encontrada.");
+                            EscreverResposta(res, "Médico não encontrado.");
                             return;
                         }
                     }
 
-                    // Verifica se já existe paciente com o mesmo CPF
-                    string verificaPacienteQuery = "SELECT COUNT(*) FROM pacientes WHERE cpf = @cpf";
-                    using (var verificaCmd = new MySqlCommand(verificaPacienteQuery, conn))
+                    // Verifica se a especialidade já existe
+                    string verificaEspecialidadeQuery = "SELECT COUNT(*) FROM especialidade WHERE nomeEspecialidade = @nome";
+                    using (var verificaCmd = new MySqlCommand(verificaEspecialidadeQuery, conn))
                     {
-                        verificaCmd.Parameters.AddWithValue("@cpf", cpf);
+                        verificaCmd.Parameters.AddWithValue("@nome", nome);
                         int count = Convert.ToInt32(verificaCmd.ExecuteScalar());
                         if (count > 0)
                         {
                             res.StatusCode = 409;
-                            EscreverResposta(res, "Paciente com esse CPF já cadastrado.");
+                            EscreverResposta(res, "Especialidade com esse nome já cadastrada.");
                             return;
                         }
                     }
 
-                    // Insere novo paciente
-                    string insertQuery = @"INSERT INTO pacientes (id, nome, dataNascimento, cpf, idEspecialidade)
-                                           VALUES (@id, @nome, @dataNascimento, @cpf, @idEspecialidade)";
+                    // Insere nova especialidade
+                    string insertQuery = @"INSERT INTO especialidade (id, nomeEspecialidade, descricao, idMedico)
+                                           VALUES (@id, @nome, @descricao, @idMedico)";
                     using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@nome", nome);
-                        cmd.Parameters.AddWithValue("@dataNascimento", dataNasc);
-                        cmd.Parameters.AddWithValue("@cpf", cpf);
-                        cmd.Parameters.AddWithValue("@idEspecialidade", idEspecialidade);
+                        cmd.Parameters.AddWithValue("@descricao", descricao);
+                        cmd.Parameters.AddWithValue("@idMedico", idMedico);
 
                         int linhasAfetadas = cmd.ExecuteNonQuery();
 
                         if (linhasAfetadas > 0)
-                            EscreverResposta(res, "Paciente cadastrado com sucesso.");
+                            EscreverResposta(res, "Especialidade cadastrada com sucesso.");
                         else
-                            EscreverResposta(res, "Falha ao cadastrar paciente.");
+                            EscreverResposta(res, "Falha ao cadastrar especialidade.");
                     }
                 }
             }

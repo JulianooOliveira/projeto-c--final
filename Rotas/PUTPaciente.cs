@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System;
 using MySql.Data.MySqlClient;
+using Database;
 
 namespace Rotas
 {
@@ -33,11 +34,9 @@ namespace Rotas
             string nome = partes[1];
             string cpf = partes[3];
 
-            string connectionString = "server=localhost;database=clinica;uid=root;pwd=;";
-
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                using (var conn = Database.Database.GetConnection())
                 {
                     conn.Open();
 

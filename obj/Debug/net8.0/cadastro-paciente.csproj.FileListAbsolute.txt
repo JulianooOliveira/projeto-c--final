@@ -1,0 +1,6 @@
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.AssemblyInfoInputs.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.AssemblyInfo.cs
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Juliano\Codigos\cSharp\projeto-c--final\obj\Debug\net8.0\cadastro-paciente.sourcelink.json

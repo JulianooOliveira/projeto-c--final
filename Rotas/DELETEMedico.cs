@@ -1,21 +1,19 @@
-using System;
 using System.Net;
 using System.Text;
+using System;
 using MySql.Data.MySqlClient;
 using Database;
 
 namespace Rotas
 {
-    public static class DeletePaciente
+    public static class DELETEMedico
     {
         public static void Executar(HttpListenerRequest req, HttpListenerResponse res)
         {
-            // Extrai o parâmetro "id" da query string
-            var query = req.Url.Query; // Exemplo: "?id=1"
+            var query = req.Url.Query;
             var queryParams = System.Web.HttpUtility.ParseQueryString(query);
             string idParam = queryParams["id"];
 
-            // Valida o ID
             if (!int.TryParse(idParam, out int id))
             {
                 res.StatusCode = 400;
@@ -25,13 +23,10 @@ namespace Rotas
 
             try
             {
-                using (var conn = Database.Database.GetConnection())
+                using (var conn = Database.GetConnection())
                 {
-                    conn.Open();
-
-                    // Verifica se paciente existe no banco
-                    string checkQuery = "SELECT COUNT(*) FROM pacientes WHERE id = @id";
-                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                    string checkQuery = "SELECT COUNT(*) FROM medico WHERE id = @id";
+                    using (var checkCmd = new MySqlCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("@id", id);
                         int count = Convert.ToInt32(checkCmd.ExecuteScalar());
@@ -39,27 +34,21 @@ namespace Rotas
                         if (count == 0)
                         {
                             res.StatusCode = 404;
-                            EscreverResposta(res, "Paciente não encontrado.");
+                            EscreverResposta(res, "Médico não encontrado.");
                             return;
                         }
                     }
 
-                    // Executa a exclusão do paciente
-                    string deleteQuery = "DELETE FROM pacientes WHERE id = @id";
-                    using (MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, conn))
+                    string deleteQuery = "DELETE FROM medico WHERE id = @id";
+                    using (var deleteCmd = new MySqlCommand(deleteQuery, conn))
                     {
                         deleteCmd.Parameters.AddWithValue("@id", id);
                         int linhasAfetadas = deleteCmd.ExecuteNonQuery();
 
                         if (linhasAfetadas > 0)
-                        {
-                            EscreverResposta(res, "Paciente deletado com sucesso.");
-                        }
+                            EscreverResposta(res, "Médico deletado com sucesso.");
                         else
-                        {
-                            res.StatusCode = 500;
-                            EscreverResposta(res, "Erro ao deletar paciente.");
-                        }
+                            EscreverResposta(res, "Erro ao deletar médico.");
                     }
                 }
             }
